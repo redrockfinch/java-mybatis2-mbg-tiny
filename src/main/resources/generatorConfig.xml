@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 注意严格按照顺序 -->
+<generatorConfiguration>
+    <!-- 配置文件 -->
+    <properties resource="application.properties" />
+
+    <!-- 数据库驱动，可以实用java或jar路径，如果在配置文件中指定了，也可省略 -->
+    <classPathEntry location="/Users/hunkxia/.m2/repository/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar"/>
+
+    <!-- 会话实例 -->
+    <context id="MyDbContext" targetRuntime="MyBatis3">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!-- 为生成的Java模型创建一个toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!-- 指定使用注释
+        <commentGenerator type="tiny.mybatis2.mbg.CommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        -->
+
+        <!-- 数据库链接 -->
+        <jdbcConnection
+            driverClass="${jdbc.driverClass}"
+            connectionURL="${jdbc.connectionURL}"
+            userId="${jdbc.userId}"
+            password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!-- 类型处理器，主要指数据库字段与代码字段转换情况 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成配置 -->
+        <javaModelGenerator targetPackage="tiny.mybatis2.mbg.model" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 映射文件生成 -->
+        <sqlMapGenerator targetPackage="tiny.mybatis2.mbg.xml" targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 操作接口生成配置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="tiny.mybatis2.mbg.xml" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 需要生成的数据库配置 -->
+        <table schema="db_ddyx" tableName="g2_user" domainObjectName="UserInfo">
+        </table>
+    </context>
+</generatorConfiguration>
